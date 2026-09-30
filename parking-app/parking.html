@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Parking Slots - Smart Parking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px 60px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .available-box {
+            background: #2ecc71;
+        }
+
+        .occupied-box {
+            background: #e74c3c;
+        }
+
+        .selected-box {
+            background: #3498db;
+        }
+
+        .parking-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .slot {
+            padding: 30px 15px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+
+            transition: transform 0.2s;
+        }
+
+        .slot:hover {
+            transform: scale(1.04);
+        }
+
+        .available {
+            background: #2ecc71;
+        }
+
+        .occupied {
+            background: #e74c3c;
+            cursor: not-allowed;
+        }
+
+        .selected {
+            background: #3498db;
+        }
+
+        .slot-number {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .status {
+            font-size: 14px;
+        }
+
+        .booking-section {
+            text-align: center;
+        }
+
+        #selectedSlot {
+            font-weight: bold;
+            color: #2e86de;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #2e86de;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e6fbd;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+
+            .parking-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🚗 Smart Parking
+    </div>
+
+    <nav>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="history.html">
+            My Bookings
+        </a>
+
+        <a href="index.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h1>
+        Available Parking Slots
+    </h1>
+
+    <p class="subtitle">
+        Select an available parking slot to continue.
+    </p>
+
+
+    <!-- Legend -->
+
+    <div class="legend">
+
+        <div class="legend-item">
+
+            <div class="box available-box"></div>
+
+            Available
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <div class="box occupied-box"></div>
+
+            Occupied
+
+        </div>
+
+
+        <div class="legend-item">
+
+            <div class="box selected-box"></div>
+
+            Selected
+
+        </div>
+
+    </div>
+
+
+    <!-- Parking Slots -->
+
+    <div class="parking-grid">
+
+
+        <div
+                class="slot available"
+                data-slot="P01"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P01
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot occupied"
+                data-slot="P02"
+        >
+
+            <div class="slot-number">
+                P02
+            </div>
+
+            <div class="status">
+                Occupied
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P03"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P03
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot occupied"
+                data-slot="P04"
+        >
+
+            <div class="slot-number">
+                P04
+            </div>
+
+            <div class="status">
+                Occupied
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P05"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P05
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P06"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P06
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot occupied"
+                data-slot="P07"
+        >
+
+            <div class="slot-number">
+                P07
+            </div>
+
+            <div class="status">
+                Occupied
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P08"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P08
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P09"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P09
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot occupied"
+                data-slot="P10"
+        >
+
+            <div class="slot-number">
+                P10
+            </div>
+
+            <div class="status">
+                Occupied
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P11"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P11
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+
+        <div
+                class="slot available"
+                data-slot="P12"
+                onclick="selectSlot(this)"
+        >
+
+            <div class="slot-number">
+                P12
+            </div>
+
+            <div class="status">
+                Available
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Booking -->
+
+    <div class="booking-section">
+
+        <div id="selectedSlot">
+            No slot selected
+        </div>
+
+        <button
+                id="bookButton"
+                onclick="bookSlot()"
+                disabled
+        >
+            Book Selected Slot
+        </button>
+
+        <div
+                class="message"
+                id="message"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let selectedSlot = null;
+
+
+    function selectSlot(slot) {
+
+        // Remove previous selection
+
+        const allSlots =
+            document.querySelectorAll(".slot");
+
+        allSlots.forEach(function(item) {
+
+            item.classList.remove("selected");
+
+        });
+
+
+        // Select clicked slot
+
+        slot.classList.add("selected");
+
+        selectedSlot =
+            slot.getAttribute("data-slot");
+
+
+        document.getElementById("selectedSlot").textContent =
+            "Selected Slot: " + selectedSlot;
+
+
+        document.getElementById("bookButton").disabled =
+            false;
+
+
+        document.getElementById("message").textContent =
+            "";
+
+    }
+
+
+    function bookSlot() {
+
+        if (selectedSlot === null) {
+
+            return;
+
+        }
+
+
+        // Store selected slot
+
+        localStorage.setItem(
+            "selectedSlot",
+            selectedSlot
+        );
+
+
+        // Move to booking page
+
+        window.location.href =
+            "booking.html";
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

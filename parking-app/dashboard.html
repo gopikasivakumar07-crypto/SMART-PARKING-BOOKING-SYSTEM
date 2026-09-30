@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Smart Parking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px 60px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 45px 20px 25px;
+        }
+
+        .welcome h1 {
+            color: #1e3a5f;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .dashboard-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px 60px;
+
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+            text-align: center;
+
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            color: #1e3a5f;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            background: #2e86de;
+            color: white;
+
+            padding: 12px 25px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1e6fbd;
+        }
+
+        .logout {
+            background: #e74c3c;
+        }
+
+        .logout:hover {
+            background: #c0392b;
+        }
+
+        footer {
+            background: #1e3a5f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🚗 Smart Parking
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="parking.html">
+            Parking
+        </a>
+
+        <a href="history.html">
+            My Bookings
+        </a>
+
+        <a href="index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<section class="welcome">
+
+    <h1 id="welcomeMessage">
+        Welcome to Smart Parking!
+    </h1>
+
+    <p>
+        Manage your parking easily from your dashboard.
+    </p>
+
+</section>
+
+
+
+<section class="dashboard-container">
+
+
+    <!-- Parking Slots -->
+
+    <div class="card">
+
+        <div class="icon">
+            🅿️
+        </div>
+
+        <h2>
+            Parking Slots
+        </h2>
+
+        <p>
+            View available and occupied parking slots
+            in real time.
+        </p>
+
+        <a
+                href="parking.html"
+                class="btn"
+                id="viewSlotsButton"
+        >
+            View Slots
+        </a>
+
+    </div>
+
+
+
+    <!-- Book Parking -->
+
+    <div class="card">
+
+        <div class="icon">
+            📅
+        </div>
+
+        <h2>
+            Book Parking
+        </h2>
+
+        <p>
+            Select an available parking slot
+            and reserve it.
+        </p>
+
+        <a
+                href="parking.html"
+                class="btn"
+                id="bookParkingButton"
+        >
+            Book Now
+        </a>
+
+    </div>
+
+
+
+    <!-- My Bookings -->
+
+    <div class="card">
+
+        <div class="icon">
+            📋
+        </div>
+
+        <h2>
+            My Bookings
+        </h2>
+
+        <p>
+            View your current and previous
+            parking reservations.
+        </p>
+
+        <a
+                href="history.html"
+                class="btn"
+                id="bookingHistoryButton"
+        >
+            View Bookings
+        </a>
+
+    </div>
+
+
+
+    <!-- Parking Information -->
+
+    <div class="card">
+
+        <div class="icon">
+            💰
+        </div>
+
+        <h2>
+            Parking Fee
+        </h2>
+
+        <p>
+            Check parking rates and calculate
+            your estimated parking fee.
+        </p>
+
+        <a
+                href="parking.html"
+                class="btn"
+                id="feeButton"
+        >
+            Check Rates
+        </a>
+
+    </div>
+
+
+
+    <!-- Logout -->
+
+    <div class="card">
+
+        <div class="icon">
+            🚪
+        </div>
+
+        <h2>
+            Logout
+        </h2>
+
+        <p>
+            End your current session and return
+            to the home page.
+        </p>
+
+        <a
+                href="index.html"
+                class="btn logout"
+                id="logoutButton"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+</section>
+
+
+
+<footer>
+
+    <p>
+        © 2026 Smart Parking Management System
+    </p>
+
+</footer>
+
+
+
+<script>
+
+    /*
+       Display the logged-in user's name.
+       For now we use a fixed name.
+       Later we can connect this to a database.
+    */
+
+    document.getElementById("welcomeMessage").textContent =
+        "Welcome, User!";
+
+
+</script>
+
+
+</body>
+
+</html>

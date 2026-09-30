@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Parking - Smart Parking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 20px 60px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .booking-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a5f;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .selected-slot {
+            background: #eaf4ff;
+            border-left: 5px solid #2e86de;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2e86de;
+        }
+
+        .fee-box {
+            background: #f0f9f4;
+            border: 1px solid #2ecc71;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .fee-box h2 {
+            color: #1e3a5f;
+        }
+
+        #fee {
+            font-size: 30px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2e86de;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e6fbd;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🚗 Smart Parking
+    </div>
+
+    <nav>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="parking.html">
+            Parking
+        </a>
+
+        <a href="history.html">
+            My Bookings
+        </a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="booking-box">
+
+        <h1>
+            Book Parking Slot
+        </h1>
+
+        <p class="subtitle">
+            Enter your vehicle and parking details.
+        </p>
+
+
+        <div class="selected-slot">
+
+            Selected Parking Slot:
+
+            <span id="slotNumber">
+                Loading...
+            </span>
+
+        </div>
+
+
+        <form id="bookingForm">
+
+
+            <div class="form-group">
+
+                <label for="vehicleNumber">
+                    Vehicle Number
+                </label>
+
+                <input
+                        type="text"
+                        id="vehicleNumber"
+                        placeholder="Example: TN01AB1234"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="vehicleType">
+                    Vehicle Type
+                </label>
+
+                <select id="vehicleType" required>
+
+                    <option value="">
+                        Select vehicle type
+                    </option>
+
+                    <option value="Car">
+                        Car
+                    </option>
+
+                    <option value="Bike">
+                        Bike
+                    </option>
+
+                    <option value="SUV">
+                        SUV
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="parkingDate">
+                    Parking Date
+                </label>
+
+                <input
+                        type="date"
+                        id="parkingDate"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="parkingTime">
+                    Parking Time
+                </label>
+
+                <input
+                        type="time"
+                        id="parkingTime"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="duration">
+                    Parking Duration
+                </label>
+
+                <select
+                        id="duration"
+                        onchange="calculateFee()"
+                        required
+                >
+
+                    <option value="">
+                        Select duration
+                    </option>
+
+                    <option value="1">
+                        1 Hour
+                    </option>
+
+                    <option value="2">
+                        2 Hours
+                    </option>
+
+                    <option value="3">
+                        3 Hours
+                    </option>
+
+                    <option value="4">
+                        4 Hours
+                    </option>
+
+                    <option value="5">
+                        5 Hours
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="fee-box">
+
+                <h2>
+                    Estimated Parking Fee
+                </h2>
+
+                <div id="fee">
+                    ₹0
+                </div>
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    id="confirmBookingButton"
+            >
+                Confirm Booking
+            </button>
+
+
+            <div
+                    class="message"
+                    id="bookingMessage"
+            ></div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+    // Get selected parking slot
+
+    const selectedSlot =
+        localStorage.getItem("selectedSlot");
+
+
+    if (selectedSlot) {
+
+        document.getElementById("slotNumber").textContent =
+            selectedSlot;
+
+    } else {
+
+        document.getElementById("slotNumber").textContent =
+            "No slot selected";
+
+    }
+
+
+    // Parking fee calculation
+
+    function calculateFee() {
+
+        const duration =
+            document.getElementById("duration").value;
+
+        const fee =
+            duration ? Number(duration) * 50 : 0;
+
+        document.getElementById("fee").textContent =
+            "₹" + fee;
+
+    }
+
+
+    // Booking form
+
+    document.getElementById("bookingForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const vehicleNumber =
+                document.getElementById("vehicleNumber").value;
+
+            const vehicleType =
+                document.getElementById("vehicleType").value;
+
+            const date =
+                document.getElementById("parkingDate").value;
+
+            const time =
+                document.getElementById("parkingTime").value;
+
+            const duration =
+                document.getElementById("duration").value;
+
+
+            const fee =
+                Number(duration) * 50;
+
+
+            if (!selectedSlot) {
+
+                document.getElementById("bookingMessage").style.color =
+                    "red";
+
+                document.getElementById("bookingMessage").textContent =
+                    "Please select a parking slot first.";
+
+                return;
+
+            }
+
+
+            // Store booking information
+
+            const booking = {
+
+                slot: selectedSlot,
+
+                vehicleNumber: vehicleNumber,
+
+                vehicleType: vehicleType,
+
+                date: date,
+
+                time: time,
+
+                duration: duration,
+
+                fee: fee
+
+            };
+
+
+            localStorage.setItem(
+                "booking",
+                JSON.stringify(booking)
+            );
+
+
+            document.getElementById("bookingMessage").style.color =
+                "green";
+
+            document.getElementById("bookingMessage").textContent =
+                "Booking successful!";
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "history.html";
+
+            }, 1000);
+
+        });
+
+
+</script>
+
+
+</body>
+
+</html>

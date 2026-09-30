@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Smart Parking Test Suite">
+
+    <test name="Smart Parking Functional Tests">
+
+        <classes>
+
+            <class name="com.smartparking.tests.LoginTest"/>
+
+            <class name="com.smartparking.tests.ParkingSlotTest"/>
+
+            <class name="com.smartparking.tests.BookingTest"/>
+
+            <class name="com.smartparking.tests.BookingConfirmationTest"/>
+
+            <class name="com.smartparking.tests.CancelBookingTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
